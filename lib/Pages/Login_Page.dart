@@ -5,8 +5,8 @@ import 'package:minimal_chat_app_flutter/Components/make_button.dart';
 class Login_Page extends StatelessWidget {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
-
-  Login_Page({super.key});
+  final void Function()? onTap;
+  Login_Page({super.key,required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,8 @@ class Login_Page extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Not a member? ',style: TextStyle(color:  Theme.of(context).colorScheme.primary),),
-                Text('Register here',style: TextStyle(color:  Theme.of(context).colorScheme.primary,fontWeight: FontWeight.bold),),
+                GestureDetector(onTap: onTap,
+                  child: Text('Register here',style: TextStyle(color:  Theme.of(context).colorScheme.primary,fontWeight: FontWeight.bold),)),
               ],
             ),
           ],
