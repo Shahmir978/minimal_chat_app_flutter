@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:minimal_chat_app_flutter/Auth/Login_or_Register.dart';
+import 'package:minimal_chat_app_flutter/Services/Auth/Login_or_Register.dart';
 import 'package:minimal_chat_app_flutter/Pages/Home_Page.dart';
 
 class AuthGate extends StatefulWidget {
@@ -19,11 +19,11 @@ class _AuthGateState extends State<AuthGate> {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return const HomePage();
+            return  HomePage();
           }
           // user is NOT logged in
           else {
-            return const LoginOrRegister();
+            return  LoginOrRegister();
           }
         },
       ),
