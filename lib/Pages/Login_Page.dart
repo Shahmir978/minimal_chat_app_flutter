@@ -1,17 +1,20 @@
-// import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:minimal_chat_app_flutter/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Components/makeTextfield.dart';
 import 'package:minimal_chat_app_flutter/Components/make_button.dart';
 
-class Login_Page extends StatelessWidget {
-  final TextEditingController _emailcontroller = TextEditingController();
-  final TextEditingController _passwordcontroller = TextEditingController();
-
-  // tap to go to register page
+class Login_Page extends StatefulWidget {
   final void Function()? onTap;
   Login_Page({super.key, required this.onTap});
+
+  @override
+  State<Login_Page> createState() => _Login_PageState();
+}
+
+class _Login_PageState extends State<Login_Page> {
+  final TextEditingController _emailcontroller = TextEditingController();
+
+  final TextEditingController _passwordcontroller = TextEditingController();
 
   void login(BuildContext context) async {
 // get auth service
@@ -103,7 +106,7 @@ class Login_Page extends StatelessWidget {
                       TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
-                    onTap: onTap,
+                    onTap: widget.onTap,
                     child: Text(
                       'Register here',
                       style: TextStyle(

@@ -11,7 +11,9 @@ void logout ()async{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home Page'), actions: [
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Home Page'), actions: [
         IconButton(
           onPressed:logout,
           icon: Icon(Icons.logout_outlined),

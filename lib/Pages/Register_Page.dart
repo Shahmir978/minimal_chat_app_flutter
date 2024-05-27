@@ -3,13 +3,22 @@ import 'package:minimal_chat_app_flutter/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Components/makeTextfield.dart';
 import 'package:minimal_chat_app_flutter/Components/make_button.dart';
 
-class Register_Page extends StatelessWidget {
-  final TextEditingController _emailcontroller = TextEditingController();
-  final TextEditingController _passwordcontroller = TextEditingController();
-  final TextEditingController _confirmpwcontroller = TextEditingController();
+class Register_Page extends StatefulWidget {
   final void Function()? onTap;
 
   Register_Page({super.key, required this.onTap});
+
+  @override
+  State<Register_Page> createState() => _Register_PageState();
+}
+
+class _Register_PageState extends State<Register_Page> {
+  final TextEditingController _emailcontroller = TextEditingController();
+
+  final TextEditingController _passwordcontroller = TextEditingController();
+
+  final TextEditingController _confirmpwcontroller = TextEditingController();
+
   void register(BuildContext context) {
     // get auth service
     final _auth = AuthService();
@@ -111,7 +120,7 @@ class Register_Page extends StatelessWidget {
                       TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
-                  onTap: onTap,
+                  onTap: widget.onTap,
                   child: Text(
                     'Login here',
                     style: TextStyle(
