@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app_flutter/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Components/makeTextfield.dart';
 import 'package:minimal_chat_app_flutter/Components/make_button.dart';
 
@@ -8,10 +9,37 @@ class Register_Page extends StatelessWidget {
   final TextEditingController _confirmpwcontroller = TextEditingController();
   final void Function()? onTap;
 
-  Register_Page({super.key,required this.onTap});
-void register (){
+  Register_Page({super.key, required this.onTap});
+  void register(BuildContext context) {
+    // get auth service
+    final _auth = AuthService();
 
-}
+    // password match = create user
+    if (_passwordcontroller.text == _confirmpwcontroller.text) {
+      try {
+        _auth.signUpWithEmailPassword(
+            _emailcontroller.text, _passwordcontroller.text);
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    }
+    // password match = create user
+
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Passwords don't match"),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,9 +94,10 @@ void register (){
               height: MediaQuery.of(context).size.height * 0.025,
             ),
             //login button
-            makeButton(text: 'Register',onTap: register,
-                // onTap:login,
-                ),
+            makeButton(
+              text: 'Register', onTap: () => register(context),
+              // onTap:login,
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
@@ -81,7 +110,8 @@ void register (){
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
-                GestureDetector(onTap: onTap,
+                GestureDetector(
+                  onTap: onTap,
                   child: Text(
                     'Login here',
                     style: TextStyle(
