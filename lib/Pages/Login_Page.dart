@@ -1,12 +1,36 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app_flutter/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Components/makeTextfield.dart';
 import 'package:minimal_chat_app_flutter/Components/make_button.dart';
 
 class Login_Page extends StatelessWidget {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+
+  // tap to go to register page
   final void Function()? onTap;
-  Login_Page({super.key,required this.onTap});
+  Login_Page({super.key, required this.onTap});
+
+  void login(BuildContext context) async {
+// get auth service
+    final authService = AuthService();
+
+// try login
+    try {
+      await authService.signInWithEmailPassword(
+          _emailcontroller.text, _passwordcontroller.text);
+    }
+// catch any errors
+    catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(e.toString()),
+              ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +49,7 @@ class Login_Page extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
+
             // welcome back msg
             Text(
               "Welcome back, You've been missed.",
@@ -34,6 +59,7 @@ class Login_Page extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
+
             // email textfield
             makeTextfield(
               hintText: 'Email',
@@ -43,6 +69,7 @@ class Login_Page extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.01,
             ),
+
             // password textfield
             makeTextfield(
               hintText: 'password',
@@ -52,19 +79,34 @@ class Login_Page extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
+
             //login button
-            makeButton(text: 'Login'
-                // onTap:login,
-                ),
+            makeButton(
+              text: 'Login',
+              onTap: () => login(context),
+            ),
+
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
+
             // register now
-            Row(mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Not a member? ',style: TextStyle(color:  Theme.of(context).colorScheme.primary),),
-                GestureDetector(onTap: onTap,
-                  child: Text('Register here',style: TextStyle(color:  Theme.of(context).colorScheme.primary,fontWeight: FontWeight.bold),)),
+                Text(
+                  'Not a member? ',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
+                GestureDetector(
+                    onTap: onTap,
+                    child: Text(
+                      'Register here',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold),
+                    )),
               ],
             ),
           ],

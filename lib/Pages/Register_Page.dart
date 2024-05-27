@@ -9,7 +9,9 @@ class Register_Page extends StatelessWidget {
   final void Function()? onTap;
 
   Register_Page({super.key,required this.onTap});
+void register (){
 
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +66,7 @@ class Register_Page extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.025,
             ),
             //login button
-            makeButton(text: 'Register'
+            makeButton(text: 'Register',onTap: register,
                 // onTap:login,
                 ),
             SizedBox(
