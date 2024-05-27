@@ -28,14 +28,16 @@ class AuthService {
   Future<UserCredential> signUpWithEmailPassword(String email, password) async {
     try {
       //create user
-
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+
       // save user info in a seperate doc
       _firestore.collection("Users").doc(userCredential.user!.uid).set({
         "uid": userCredential.user!.uid,
-        "email": userCredential.user!.email,
-      });
+        "email": email,
+      },
+      );
+
       return userCredential;
     } on FirebaseException catch (e) {
       throw Exception(e.code);
