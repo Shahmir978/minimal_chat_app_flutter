@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage ({super.key});
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text("Settings"),
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios)),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.grey,
+        title: Text('Settings'),
       ),
     );
   }

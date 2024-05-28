@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app_flutter/Components/chat_bubble.dart';
 import 'package:minimal_chat_app_flutter/Components/makeTextfield.dart';
 import 'package:minimal_chat_app_flutter/Services/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Services/Chat/chat_Service.dart';
@@ -32,13 +33,14 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: true,
-        title: Text(
-          recieverEmail,
-          style: TextStyle(color: Colors.white),
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.grey,
+        title: Text(recieverEmail),
       ),
       body: Column(
         children: [
@@ -47,7 +49,6 @@ class ChatPage extends StatelessWidget {
           ),
           // user input
           _buildUserInput(),
-
         ],
       ),
     );
@@ -77,22 +78,50 @@ class ChatPage extends StatelessWidget {
 
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Text(data["message"]);
+// is current user
+    bool isCurrentUser =
+        data['senderID'] == _authService.getCurrenteUser()!.uid;
+//align message to the right if sender is th ecurrent user otherwise left
+    var alignment =
+        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
+    return Container(
+        alignment: alignment,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ChatBubble(message: data['message'], isCurrentUser: isCurrentUser)
+          ],
+        ));
   }
 
   // build user input
   Widget _buildUserInput() {
-    return Row(
-      children: [
-        Expanded(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 25),
+      child: Row(
+        children: [
+          Expanded(
             child: makeTextfield(
                 hintText: "Type a message",
                 obscureText: false,
-                controller: _messageController),),
-                
-                // make send button
-                IconButton(onPressed: sendMessage, icon: const Icon(Icons.arrow_upward),)
-      ],
+                controller: _messageController),
+          ),
+
+          // make send button
+          Container(
+            decoration:
+                BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+            margin: EdgeInsets.only(right: 20),
+            child: IconButton(
+              onPressed: sendMessage,
+              icon: const Icon(
+                Icons.arrow_upward,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
