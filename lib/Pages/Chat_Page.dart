@@ -36,7 +36,7 @@ class ChatPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: true,
         title: Text(
-          'Chat Page',
+          recieverEmail,
           style: TextStyle(color: Colors.white),
         ),
       ),

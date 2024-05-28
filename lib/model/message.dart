@@ -22,7 +22,7 @@ class Message {
       'senderEmail': senderEmail,
       'recieverID': receiverID,
       'message': message,
-      'timestamp': Timestamp,
+      'timestamp': timestamp,
     };
   }
 }
