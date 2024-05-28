@@ -1,5 +1,4 @@
-
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minimal_chat_app_flutter/Components/UserTile.dart';
 
@@ -9,7 +8,7 @@ import 'package:minimal_chat_app_flutter/Services/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Services/Chat/chat_Service.dart';
 
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
+  HomePage({super.key});
   // chat and auth services
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
@@ -19,7 +18,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Home Page'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          'Home Page',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       drawer: makeDrawer(),
       body: _buildUserList(),
@@ -27,32 +30,49 @@ class HomePage extends StatelessWidget {
   }
 
 // build a list of users except the current logged in user
-Widget _buildUserList(){
-  return StreamBuilder(stream: _chatService.getUsersStream(), builder: (context , snapshot){
-    //errror
-    if(snapshot.hasError){
-      return const Text('Error');
-    }
+  Widget _buildUserList() {
+    return StreamBuilder(
+        stream: _chatService.getUsersStream(),
+        builder: (context, snapshot) {
+          //errror
+          if (snapshot.hasError) {
+            return const Text('Error');
+          }
 
-    // loading..
-    if(snapshot.connectionState == ConnectionState.waiting){
-      return const Text('Loading...');
+          // loading..
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text('Loading...');
+          }
 
-    }
+          //return listview
+          return ListView(
+            children: snapshot.data!
+                .map<Widget>(
+                    (userData) => _buildUserListItem(userData, context))
+                .toList(),
+          );
+        });
+  }
 
-    //return listview
-    return ListView(
-      children: snapshot.data!.map<Widget>((userData)=> _buildUserListItem(userData,context)).toList(),
-    );
-
-  });
-}
 // build individual user
-Widget _buildUserListItem(Map<String,dynamic> userData, BuildContext context){
-  // display all user except current user
-  return UserTile(onTap: () { 
-    // go to chat
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatPage(recieverEmail:userData["email"],)));
-   }, text: userData["email"],);
-}
+  Widget _buildUserListItem(
+      Map<String, dynamic> userData, BuildContext context) {
+    // display all user except current user
+    if (userData['email'] != _authService.getCurrenteUser()!.email) {
+      return UserTile(
+        text: userData["email"],
+        onTap: () {
+          // tap on user to go to chatpage
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                        recieverEmail: userData["email"],
+                      )));
+        },
+      );
+    } else {
+      return Container();
+    }
+  }
 }
