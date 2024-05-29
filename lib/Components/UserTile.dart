@@ -26,7 +26,12 @@ class UserTile extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.05,
           ),
           //name
-          Text(text),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
         ]),
       ),
     );

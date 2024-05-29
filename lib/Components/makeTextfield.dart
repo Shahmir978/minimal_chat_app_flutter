@@ -21,10 +21,12 @@ class makeTextfield extends StatelessWidget {
         focusNode: focusNode,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
             borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.tertiary),
+                BorderSide(color: Theme.of(context).colorScheme.secondary),
           ),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
             borderSide:
                 BorderSide(color: Theme.of(context).colorScheme.primary),
           ),

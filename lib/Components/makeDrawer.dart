@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:minimal_chat_app_flutter/Services/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Pages/Settings_Page.dart';
 
@@ -21,8 +22,8 @@ void logout ()async{
               DrawerHeader(
                 child: Center(
                   child: Icon(
-                    Icons.message,
-                    size: 64,
+                    Iconsax.messages_1,
+                    size: 74,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
@@ -45,7 +46,7 @@ void logout ()async{
               Padding(
                 padding: const EdgeInsets.only(left: 25),
                 child: ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Iconsax.setting_2),
                   title: Text("S E T T I N G S"),
                   onTap: () {
                     //pop the drawer

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:minimal_chat_app_flutter/Services/Auth/auth_service.dart';
 import 'package:minimal_chat_app_flutter/Components/makeTextfield.dart';
 import 'package:minimal_chat_app_flutter/Components/make_button.dart';
@@ -48,8 +49,8 @@ class _Login_PageState extends State<Login_Page> {
           children: [
             // logo
             Icon(
-              Icons.message,
-              size: 60,
+              Iconsax.messages_1,
+              size: 110,
               color: Theme.of(context).colorScheme.primary,
             ),
             SizedBox(
