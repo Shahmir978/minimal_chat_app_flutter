@@ -68,6 +68,7 @@ class _Login_PageState extends State<Login_Page> {
 
             // email textfield
             makeTextfield(
+              focusNode: null,
               hintText: 'Email',
               obscureText: false,
               controller: _emailcontroller,
@@ -78,6 +79,7 @@ class _Login_PageState extends State<Login_Page> {
 
             // password textfield
             makeTextfield(
+              focusNode: null,
               hintText: 'password',
               obscureText: true,
               controller: _passwordcontroller,

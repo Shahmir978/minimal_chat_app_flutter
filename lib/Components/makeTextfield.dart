@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class makeTextfield extends StatelessWidget {
-  const makeTextfield({super.key, required this.hintText,required this.obscureText,required this.controller});
+  const makeTextfield(
+      {super.key,
+      required this.hintText,
+      required this.obscureText,
+      required this.controller,
+      required this.focusNode});
   final String hintText;
   final bool obscureText;
   final TextEditingController controller;
+  final FocusNode? focusNode;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,6 +18,7 @@ class makeTextfield extends StatelessWidget {
       child: TextField(
         obscureText: obscureText,
         controller: controller,
+        focusNode: focusNode,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide:
@@ -24,9 +31,7 @@ class makeTextfield extends StatelessWidget {
           fillColor: Theme.of(context).colorScheme.secondary,
           filled: true,
           hintText: hintText,
-          hintStyle: TextStyle(
-            color: Theme.of(context).colorScheme.primary
-          ),
+          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
       ),
     );

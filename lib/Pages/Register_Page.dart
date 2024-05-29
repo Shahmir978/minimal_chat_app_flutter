@@ -78,6 +78,7 @@ class _Register_PageState extends State<Register_Page> {
             // email textfield
             makeTextfield(
               hintText: 'Email',
+              focusNode: null,
               obscureText: false,
               controller: _emailcontroller,
             ),
@@ -86,6 +87,8 @@ class _Register_PageState extends State<Register_Page> {
             ),
             // password textfield
             makeTextfield(
+              focusNode: null,
+
               hintText: 'Password',
               obscureText: true,
               controller: _passwordcontroller,
@@ -97,6 +100,7 @@ class _Register_PageState extends State<Register_Page> {
             makeTextfield(
               hintText: 'Confirm password',
               obscureText: true,
+              focusNode: null,
               controller: _confirmpwcontroller,
             ),
             SizedBox(
